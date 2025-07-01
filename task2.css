@@ -1,0 +1,64 @@
+header{
+    background-color: rgb(68, 68, 171);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+header div{
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+main{
+    display: flex;
+    gap: 20px;
+}
+aside{
+    background-color: rgb(130, 141, 212);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 350px;
+    padding: 10px 20px 50px 10px;
+    border-radius: 10px;
+}
+aside ul{
+    list-style-type: none;
+    padding: 10px;
+}
+aside li{
+    font-size: 20px;   
+}
+aside button{
+    width: 60px;
+    background-color: rosybrown;
+    border-radius: 10px
+}
+.main-content{
+    display: flex;
+    height: 120px;
+    gap: 20px;
+}
+.main-content div{
+    width: 217px;
+    border-top: 4px solid black;
+    border-radius: 20px;
+    background-color: rgb(174, 76, 254);
+    margin-left: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.overview{
+    background-color: rgb(171, 179, 185);
+    width: 700px;
+    height: 230px;
+    padding: 20px;
+    border-radius: 20px;
+    margin-left: 25px;
+}
