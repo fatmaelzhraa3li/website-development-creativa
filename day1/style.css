@@ -1,0 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Added transition for smooth dark mode */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #0056b3;
+    margin-bottom: 30px;
+    text-align: center; /* Center align the main title */
+}
+
+h2 {
+    color: #007bff;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+section {
+    margin-bottom: 30px; /* Spacing between sections */
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+#generateProfileBtn {
+    background-color: #007bff;
+    color: white;
+}
+
+#generateProfileBtn:hover {
+    background-color: #0056b3;
+}
+
+#calculateTotalBtn {
+    background-color: #28a745;
+    color: white;
+}
+
+#calculateTotalBtn:hover {
+    background-color: #218838;
+}
+
+#verifyAgeBtn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+#verifyAgeBtn:hover {
+    background-color: #138496;
+}
+
+#toggleDarkModeBtn {
+    background-color: #343a40;
+    color: white;
+}
+
+#toggleDarkModeBtn:hover {
+    background-color: #23272b;
+}
+
+#addItemBtn { /* Specific style for Add button */
+    background-color: #6c757d;
+    color: white;
+}
+
+#addItemBtn:hover {
+    background-color: #5a6268;
+}
+
+
+input[type="number"],
+input[type="text"] { /* Apply to both number and text inputs */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Adjusted width for consistency */
+    margin-right: 10px;
+    box-sizing: border-box; /* Include padding/border in width */
+}
+
+.output-area {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    min-height: 50px; /* Ensure it has some height even when empty */
+}
+
+.output-area p {
+    margin: 5px 0;
+}
+
+/* Shopping List Specific Styles */
+#shoppingListItems {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+    margin-top: 20px;
+}
+
+#shoppingListItems li {
+    background-color: #f8f9fa;
+    border: 1px solid #e2e6ea;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex; /* Use flexbox for item and delete button alignment */
+    justify-content: space-between; /* Space between text and button */
+    align-items: center; /* Vertically align */
+    transition: background-color 0.2s ease;
+}
+
+#shoppingListItems li:hover {
+    background-color: #f0f2f5;
+}
+
+#shoppingListItems li .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it round */
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+#shoppingListItems li .delete-btn:hover {
+    background-color: #c82333;
+}
+
+
+/* Dark Mode styles */
+body.dark-mode {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background-color: #3e3e3e;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode h1,
+body.dark-mode h2 {
+    color: #9cb3e0; /* A lighter blue for dark mode headings */
+}
+
+body.dark-mode button {
+    filter: brightness(1.1); /* Make buttons slightly brighter in dark mode */
+}
+
+body.dark-mode input[type="number"],
+body.dark-mode input[type="text"] {
+    background-color: #4a4a4a;
+    border-color: #666;
+    color: #e0e0e0;
+}
+
+body.dark-mode .output-area {
+    background-color: #4a4a4a;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+body.dark-mode #shoppingListItems li {
+    background-color: #4a4a4a;
+    border-color: #555;
+}
+
+body.dark-mode #shoppingListItems li:hover {
+    background-color: #555;
+}
