@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1 class="app-title"><i class="fas fa-chart-line"></i> Enterprise Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-avatar">JD</div> <span class="user-name">John Doe</span>
+                <span class="user-role">Admin User</span>
+            </div>
+        </header>
+
+        <main class="dashboard-main-content">
+            <section class="dashboard-overview">
+                <div class="section-header">
+                    <h2>Dashboard Overview</h2>
+                    <p>Welcome back! Here's what's happening with your business today.</p>
+                </div>
+
+                <div class="overview-cards">
+                    <div class="card overview-card total-revenue">
+                        <div class="card-icon"><i class="fas fa-dollar-sign"></i></div>
+                        <div class="card-content">
+                            <span class="card-title">Total Revenue</span>
+                            <span class="card-value">$48,752</span>
+                            <span class="card-change positive"><i class="fas fa-arrow-up"></i> 12.5% from last month</span>
+                        </div>
+                    </div>
+                    <div class="card overview-card new-orders">
+                        <div class="card-icon"><i class="fas fa-box"></i></div>
+                        <div class="card-content">
+                            <span class="card-title">New Orders</span>
+                            <span class="card-value">2,156</span>
+                            <span class="card-change positive"><i class="fas fa-arrow-up"></i> 8.3% from last month</span>
+                        </div>
+                    </div>
+                    <div class="card overview-card new-customers">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <div class="card-content">
+                            <span class="card-title">New Customers</span>
+                            <span class="card-value">524</span>
+                            <span class="card-change negative"><i class="fas fa-arrow-down"></i> 2.1% from last month</span>
+                        </div>
+                    </div>
+                    <div class="card overview-card avg-value">
+                        <div class="card-icon"><i class="fas fa-tag"></i></div>
+                        <div class="card-content">
+                            <span class="card-title">Avg. Order Value</span>
+                            <span class="card-value">$226</span>
+                            <span class="card-change positive"><i class="fas fa-arrow-up"></i> 3.7% from last month</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i> <input type="text" placeholder="Search..." class="search-input">
+                </div>
+            </section>
+
+            <div class="grid-2-cols">
+                <section class="card sales-performance">
+                    <div class="card-header">
+                        <h3>Sales Performance</h3>
+                        <div class="dropdown">
+                            <select>
+                                <option value="90-days">Last 90 Days</option>
+                                <option value="30-days">Last 30 Days</option>
+                                <option value="7-days">Last 7 Days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body chart-placeholder">
+                        <i class="fas fa-chart-area chart-icon"></i>
+                        <span>Chart Visualization</span>
+                    </div>
+                </section>
+
+                <section class="card recent-orders">
+                    <div class="card-header">
+                        <h3>Recent Orders</h3>
+                        <div class="dropdown">
+                            <select>
+                                <option value="this-week">This Week</option>
+                                <option value="last-week">Last Week</option>
+                                <option value="this-month">This Month</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD-7841</td>
+                                    <td>Sarah Johnson</td>
+                                    <td>$245.99</td>
+                                    <td class="status completed">Completed</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-7840</td>
+                                    <td>Michael Chen</td>
+                                    <td>$189.50</td>
+                                    <td class="status pending">Pending</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-7839</td>
+                                    <td>David Wilson</td>
+                                    <td>$320.00</td>
+                                    <td class="status completed">Completed</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-7838</td>
+                                    <td>Emily Davis</td>
+                                    <td>$156.75</td>
+                                    <td class="status canceled">Canceled</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-7837</td>
+                                    <td>Robert Brown</td>
+                                    <td>$275.30</td>
+                                    <td class="status completed">Completed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="#" class="view-all-orders">View All Orders &rarr;</a>
+                    </div>
+                </section>
+            </div>
+
+            <div class="grid-2-cols">
+                <section class="card recent-activity">
+                    <div class="card-header">
+                        <h3>Recent Activity</h3>
+                        <div class="dropdown">
+                            <select>
+                                <option value="today">Today</option>
+                                <option value="yesterday">Yesterday</option>
+                                <option value="last-7-days">Last 7 Days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body activity-list">
+                        <div class="activity-item">
+                            <div class="activity-avatar bg-blue">SJ</div>
+                            <div class="activity-details">
+                                <span class="activity-name">Sarah Johnson</span>
+                                <p>Placed a new order #ORD-7841 for $245.99</p>
+                                <span class="activity-time">10 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar bg-green">MC</div>
+                            <div class="activity-details">
+                                <span class="activity-name">Michael Chen</span>
+                                <p>Updated shipping information for order #ORD-7840</p>
+                                <span class="activity-time">30 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar bg-purple">DW</div>
+                            <div class="activity-details">
+                                <span class="activity-name">David Wilson</span>
+                                <p>Order #ORD-7839 has been delivered successfully</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar bg-red">ED</div>
+                            <div class="activity-details">
+                                <span class="activity-name">Emily Davis</span>
+                                <p>Canceled order #ORD-7838</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card customer-acquisition">
+                    <div class="card-header">
+                        <h3>Customer Acquisition</h3>
+                        <div class="dropdown">
+                            <select>
+                                <option value="30-days">Last 30 Days</option>
+                                <option value="90-days">Last 90 Days</option>
+                                <option value="1-year">Last 1 Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body chart-placeholder">
+                        <i class="fas fa-users chart-icon"></i>
+                        <span>Chart Visualization</span>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>&copy; 2023 Enterprise Dashboard. All rights reserved.</p>
+            <nav class="footer-nav">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Help Center</a>
+                <a href="#">Contact Us</a>
+            </nav>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
