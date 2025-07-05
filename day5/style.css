@@ -1,0 +1,632 @@
+/* General Styles */
+:root {
+    --primary-color: #6a1b9a; /* Deep Purple */
+    --secondary-color: #4a148c; /* Darker Purple */
+    --accent-color: #ffeb3b; /* Amber/Yellow for highlights */
+    --text-color: #333;
+    --light-text-color: #f0f0f0;
+    --background-color: #f8f8f8;
+    --card-background: #ffffff;
+    --border-color: #eee;
+    --modal-bg: rgba(0, 0, 0, 0.7);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+
+.primary-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.secondary-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    transform: translateY(-2px);
+}
+
+.section-description {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.1em;
+    color: #666;
+}
+
+/* Header */
+.header {
+    background-color: var(--card-background); /* White or light background for header */
+    color: var(--primary-color);
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.header .nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.header .nav ul li {
+    margin-left: 30px;
+}
+
+.header .nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.header .nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+.login-btn {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 8px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(106, 27, 154, 0.7), rgba(74, 20, 140, 0.7)), url('https://via.placeholder.com/1600x800?text=Beautiful+Landscape') no-repeat center center/cover;
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 100px 0;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    color: var(--light-text-color);
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+}
+
+.hero-buttons .btn {
+    margin: 0 10px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1001; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: var(--modal-bg); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    margin: auto;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.close-button {
+    color: var(--text-color);
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.modal-content .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.modal-content .login-form-btn {
+    width: 100%;
+    margin-top: 20px;
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+
+.modal-content .login-form-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.modal-content p {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.modal-content p a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.modal-content p a:hover {
+    text-decoration: underline;
+}
+
+/* Section Styling (General) */
+section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+/* Why Choose Us Section */
+.why-choose-us-section {
+    background-color: var(--background-color);
+}
+
+.features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.feature-card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card .icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: var(--accent-color); /* Accent color for icons */
+}
+
+.feature-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.feature-card p {
+    color: var(--text-color);
+}
+
+/* Our Services Section */
+.services-section {
+    background-color: var(--light-text-color); /* Lighter background */
+}
+
+.services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.service-card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card .icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+}
+
+.service-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.service-card p {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.service-card .learn-more {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.service-card .learn-more:hover {
+    color: var(--secondary-color);
+}
+
+/* Our Impact Section */
+.impact-section {
+    background-color: var(--background-color);
+    text-align: center;
+}
+
+.impact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.impact-item {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.impact-item:hover {
+    transform: translateY(-5px);
+}
+
+.impact-item .icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.impact-item h3 {
+    font-size: 2.2em;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.impact-item p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* Contact Section */
+.contact-section {
+    background-color: var(--light-text-color);
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.contact-form .send-message-btn {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    margin-top: 20px;
+}
+
+.contact-form .send-message-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Footer Section */
+.footer {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 60px 0 20px;
+    text-align: center;
+}
+
+.footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.footer .footer-col {
+    flex: 1;
+    min-width: 220px;
+    margin-bottom: 30px;
+}
+
+.footer .footer-col h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: var(--light-text-color);
+}
+
+.footer .footer-col p {
+    font-size: 0.95em;
+    line-height: 1.8;
+}
+
+.footer .footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer .footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer .footer-col ul li a {
+    text-decoration: none;
+    color: var(--light-text-color);
+    transition: color 0.3s ease;
+}
+
+.footer .footer-col ul li a:hover {
+    color: var(--accent-color);
+}
+
+.footer .social-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.footer .social-links img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    padding: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.footer .social-links img:hover {
+    background-color: var(--accent-color);
+}
+
+.footer .copyright {
+    margin-top: 20px;
+    font-size: 0.9em;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header .nav ul {
+        flex-direction: column;
+        margin-top: 15px;
+    }
+
+    .header .nav ul li {
+        margin: 10px 0;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero-buttons .btn {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .features-grid,
+    .services-grid,
+    .impact-grid,
+    .footer .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-card,
+    .service-card,
+    .impact-item,
+    .footer .footer-col {
+        max-width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .modal-content {
+        width: 85%;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2em;
+    }
+
+    section {
+        padding: 50px 0;
+    }
+
+    section h2 {
+        font-size: 2em;
+    }
+
+    .feature-card,
+    .service-card,
+    .impact-item {
+        padding: 20px;
+    }
+
+    .contact-form {
+        padding: 25px;
+    }
+}

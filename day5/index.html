@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - Modern Web Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">Nexus</div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="login-btn" id="loginButton">Login</button>
+        </div>
+    </header>
+
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Modern Solutions for Digital Excellence</h1>
+                <p>We craft beautiful digital experiences that drive results and elevate your brand to new heights.</p>
+                <div class="hero-buttons">
+                    <button class="btn primary-btn">Explore Features</button>
+                    <button class="btn secondary-btn">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Welcome Back</h2>
+            <form>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn login-form-btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+        </div>
+    </div>
+
+    <section class="why-choose-us-section" id="features">
+        <div class="container">
+            <h2>Why Choose Us</h2>
+            <p class="section-description">Our platform offers everything you need to build a powerful online presence.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized for performance with instant load times and smooth animations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📱</div>
+                    <h3>Fully Responsive</h3>
+                    <p>Looks perfect on any device from smartphones to large desktop screens.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚙️</div>
+                    <h3>Customizable</h3>
+                    <p>Easily customize every aspect to match your brand identity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section" id="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <p class="section-description">We offer comprehensive solutions to meet all your digital needs.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="icon">💻</div>
+                    <h3>Web Development</h3>
+                    <p>Custom websites built with modern technologies for optimal performance.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="service-card">
+                    <div class="icon">📈</div>
+                    <h3>Digital Marketing</h3>
+                    <p>Strategies to grow your online presence and reach your target audience.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="service-card">
+                    <div class="icon">🖌️</div>
+                    <h3>UI/UX Design</h3>
+                    <p>Beautiful interfaces designed for exceptional user experiences.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="impact-section">
+        <div class="container">
+            <h2>Our Impact</h2>
+            <p class="section-description">Numbers that speak about our dedication and success</p>
+            <div class="impact-grid">
+                <div class="impact-item">
+                    <div class="icon">👥</div>
+                    <h3>25</h3>
+                    <p>Happy Clients</p>
+                </div>
+                <div class="impact-item">
+                    <div class="icon">💼</div>
+                    <h3>500</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="impact-item">
+                    <div class="icon">🏆</div>
+                    <h3>400</h3>
+                    <p>Awards Won</p>
+                </div>
+                <div class="impact-item">
+                    <div class="icon">🤝</div>
+                    <h3>88</h3>
+                    <p>Team Members</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p class="section-description">Have a project in mind? We'd love to hear from you.</p>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" placeholder="Type your message..."></textarea>
+                </div>
+                <button type="submit" class="btn send-message-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Nexus</h3>
+                    <p>Modern solutions for digital excellence. We help businesses grow through innovative technology.</p>
+                    <div class="social-links">
+                        <a href="#"><img src="https://via.placeholder.com/24/fff/000?text=F" alt="Facebook"></a>
+                        <a href="#"><img src="https://via.placeholder.com/24/fff/000?text=T" alt="Twitter"></a>
+                        <a href="#"><img src="https://via.placeholder.com/24/fff/000?text=I" alt="Instagram"></a>
+                        <a href="#"><img src="https://via.placeholder.com/24/fff/000?text=L" alt="LinkedIn"></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul>
+                        <li>Web Development</li>
+                        <li>Digital Marketing</li>
+                        <li>UI/UX Design</li>
+                        <li>Consulting</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <p>123 Business Ave, New York, NY 10001</p>
+                    <p>Info@nexus.com</p>
+                    <p>+1 (555) 123-4567</p>
+                    <p>Mon-Fri: 9AM - 5PM</p>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Nexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
