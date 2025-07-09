@@ -1,0 +1,379 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Global Variables and Data Management ---
+    // تحميل البيانات من Local Storage عند بدء تشغيل التطبيق
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    let availableServices = JSON.parse(localStorage.getItem('availableServices')) || [];
+    let pendingServices = JSON.parse(localStorage.getItem('pendingServices')) || [];
+    let confirmedServices = JSON.parse(localStorage.getItem('confirmedServices')) || [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || []; // سلة المشتريات لكل مستخدم
+
+    // إضافة بعض المستخدمين الافتراضيين والخدمات لو localStorage فاضي
+    // ده عشان تجرب الموقع من غير ما تضطر تضيف كل مرة
+    if (users.length === 0) {
+        users = [
+            { username: 'patient1', password: '123', role: 'patient' },
+            { username: 'drmohamed', password: '123', role: 'doctor' }
+        ];
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    if (availableServices.length === 0) {
+        availableServices = [
+            { id: 's1', name: 'General Checkup', price: 300, image: 'https://via.placeholder.com/200x180/ccc/555?text=Checkup' },
+            { id: 's2', name: 'X-Ray', price: 600, image: 'https://via.placeholder.com/200x180/ccc/555?text=X-Ray' },
+            { id: 's3', name: 'Blood Test', price: 400, image: 'https://via.placeholder.com/200x180/ccc/555?text=Blood+Test' },
+            { id: 's4', name: 'MRI Scan', price: 1500, image: 'https://via.placeholder.com/200x180/ccc/555?text=MRI' },
+            { id: 's5', name: 'Dental Cleaning', price: 350, image: 'https://via.placeholder.com/200x180/ccc/555?text=Dental' },
+            { id: 's6', name: 'Heart ECG', price: 700, image: 'https://via.placeholder.com/200x180/ccc/555?text=ECG' },
+            { id: 's7', name: 'Skin Consultation', price: 250, image: 'https://via.placeholder.com/200x180/ccc/555?text=Skin+Check' },
+            { id: 's8', name: 'Eye Exam', price: 300, image: 'https://via.placeholder.com/200x180/ccc/555?text=Eye+Exam' },
+            { id: 's9', name: 'Ultrasound', price: 900, image: 'https://via.placeholder.com/200x180/ccc/555?text=Ultrasound' },
+            { id: 's10', name: 'Physiotherapy Session', price: 200, image: 'https://via.placeholder.com/200x180/ccc/555?text=Physio' },
+            { id: 's11', name: 'Vitamin D Test', price: 150, image: 'https://via.placeholder.com/200x180/ccc/555?text=Vitamin+D' },
+            { id: 's12', name: 'Sugar Test', price: 180, image: 'https://via.placeholder.com/200x180/ccc/555?text=Sugar+Test' }
+        ];
+        localStorage.setItem('availableServices', JSON.stringify(availableServices));
+    }
+
+    // --- Utility Functions ---
+    function isLoggedIn() {
+        return loggedInUser !== null;
+    }
+
+    function getLoggedInUserRole() {
+        return loggedInUser ? loggedInUser.role : null;
+    }
+
+    function getLoggedInUsername() {
+        return loggedInUser ? loggedInUser.username : null;
+    }
+
+    function redirectTo(url) {
+        window.location.href = url;
+    }
+
+    function logout() {
+        localStorage.removeItem('loggedInUser');
+        loggedInUser = null; // Clear in memory as well
+        alert('تم تسجيل الخروج بنجاح!');
+        redirectTo('login.html'); // التوجيه لصفحة تسجيل الدخول
+    }
+
+    // --- Common UI Elements and Event Listeners ---
+    // Logout button (assuming it exists on all authenticated pages)
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', logout);
+    }
+
+    // --- Login Page Logic (login.html) ---
+    const loginForm = document.getElementById('loginForm');
+    const roleSelect = document.getElementById('roleSelect');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const loginMessage = document.getElementById('loginMessage');
+
+    if (loginForm) {
+        // إذا كان المستخدم مسجل دخول بالفعل، إعادة توجيهه
+        if (isLoggedIn()) {
+            if (getLoggedInUserRole() === 'doctor') {
+                redirectTo('doctor.html');
+            } else {
+                redirectTo('services.html'); // أو أي صفحة افتراضية للمريض
+            }
+            return; // توقف تنفيذ باقي الكود الخاص بصفحة تسجيل الدخول
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selectedRole = roleSelect.value;
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            const user = users.find(u => u.username === username && u.password === password && u.role === selectedRole);
+
+            if (user) {
+                loggedInUser = user;
+                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                loginMessage.textContent = ''; // مسح أي رسائل سابقة
+                alert('تم تسجيل الدخول بنجاح!');
+                if (user.role === 'doctor') {
+                    redirectTo('doctor.html');
+                } else {
+                    redirectTo('services.html');
+                }
+            } else {
+                loginMessage.textContent = 'Invalid credentials or role.';
+                loginMessage.style.color = 'red';
+            }
+        });
+    }
+
+    // --- Services Page Logic (services.html) ---
+    const servicesContainer = document.getElementById('availableServices'); // تأكد من وجود هذا الـ ID في الـ HTML
+    if (servicesContainer) {
+        // التأكد من أن المستخدم مسجل دخول للوصول لهذه الصفحة
+        if (!isLoggedIn()) {
+            redirectTo('login.html');
+            return;
+        }
+
+        renderServices();
+    }
+
+    function renderServices() {
+        if (!servicesContainer) return; // تأكد من وجود الـ container
+
+        servicesContainer.innerHTML = ''; // مسح المحتوى الحالي
+        availableServices.forEach(service => {
+            const serviceCard = document.createElement('div');
+            serviceCard.className = 'service-card'; // افترض وجود هذا الكلاس للتنسيق
+            serviceCard.innerHTML = `
+                <img src="${service.image}" alt="${service.name}" style="width:100%; height:180px; object-fit:cover;">
+                <h3>${service.name}</h3>
+                <p>Price: ${service.price} EGP</p>
+                <button class="add-to-cart-button" data-id="${service.id}">Add</button>
+            `;
+            servicesContainer.appendChild(serviceCard);
+        });
+        attachAddToCartListeners();
+    }
+
+    function attachAddToCartListeners() {
+        document.querySelectorAll('.add-to-cart-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const serviceId = e.target.dataset.id;
+                const serviceToAdd = availableServices.find(s => s.id === serviceId);
+
+                if (serviceToAdd) {
+                    // تأكد أن السلة خاصة بالمستخدم الحالي
+                    let userCart = JSON.parse(localStorage.getItem(`cart_${getLoggedInUsername()}`)) || [];
+                    if (!userCart.some(s => s.id === serviceId)) { // منع إضافة نفس الخدمة مرتين
+                        userCart.push(serviceToAdd);
+                        localStorage.setItem(`cart_${getLoggedInUsername()}`, JSON.stringify(userCart));
+                        alert('Added to cart');
+                        // لا يوجد تحديث للصفحة هنا، فقط يتم إضافة الخدمة
+                    } else {
+                        alert('هذه الخدمة موجودة بالفعل في السلة!');
+                    }
+                }
+            });
+        });
+    }
+
+
+    // --- Cart Page Logic (cart.html) ---
+    const cartContainer = document.getElementById('selectedServices'); // تأكد من وجود هذا الـ ID في الـ HTML
+    const totalDisplay = document.getElementById('totalPrice'); // تأكد من وجود هذا الـ ID في الـ HTML
+    const confirmServicesButton = document.getElementById('confirmServicesButton'); // تأكد من وجود هذا الـ ID في الـ HTML
+
+    if (cartContainer) {
+        // التأكد من أن المستخدم مسجل دخول للوصول لهذه الصفحة
+        if (!isLoggedIn()) {
+            redirectTo('login.html');
+            return;
+        }
+
+        renderCart();
+
+        if (confirmServicesButton) {
+            confirmServicesButton.addEventListener('click', () => {
+                let userCart = JSON.parse(localStorage.getItem(`cart_${getLoggedInUsername()}`)) || [];
+                if (userCart.length > 0) {
+                    // Get current date/time for confirmed services
+                    const now = new Date();
+                    const formattedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}, ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+
+                    // تحديث pendingServices وربطها بالمستخدم
+                    let currentUserPendingServices = JSON.parse(localStorage.getItem(`pendingServices_${getLoggedInUsername()}`)) || [];
+                    userCart.forEach(service => {
+                        currentUserPendingServices.push({ ...service, date: formattedDate });
+                    });
+                    localStorage.setItem(`pendingServices_${getLoggedInUsername()}`, JSON.stringify(currentUserPendingServices));
+
+                    // مسح السلة بعد التأكيد
+                    localStorage.removeItem(`cart_${getLoggedInUsername()}`);
+                    cart = []; // مسح السلة في الذاكرة
+
+                    alert('Services sent for confirmation');
+                    redirectTo('account.html'); // إعادة توجيه لصفحة الحساب
+                } else {
+                    alert('سلتك فارغة!');
+                }
+            });
+        }
+    }
+
+    function renderCart() {
+        if (!cartContainer) return;
+
+        let userCart = JSON.parse(localStorage.getItem(`cart_${getLoggedInUsername()}`)) || [];
+        cartContainer.innerHTML = '';
+        let total = 0;
+
+        if (userCart.length === 0) {
+            cartContainer.innerHTML = '<p>سلة المشتريات فارغة.</p>';
+            totalDisplay.textContent = 'Total: 0 EGP';
+            if (confirmServicesButton) confirmServicesButton.disabled = true; // تعطيل زر التأكيد
+            return;
+        } else {
+            if (confirmServicesButton) confirmServicesButton.disabled = false; // تفعيل الزر
+        }
+
+        userCart.forEach(service => {
+            const serviceCard = document.createElement('div');
+            serviceCard.className = 'service-card'; // افترض وجود هذا الكلاس للتنسيق
+            serviceCard.innerHTML = `
+                <img src="${service.image}" alt="${service.name}" style="width:100%; height:180px; object-fit:cover;">
+                <h3>${service.name}</h3>
+                <p>${service.price} EGP</p>
+                <button class="remove-from-cart-button" data-id="${service.id}">Remove</button>
+            `;
+            cartContainer.appendChild(serviceCard);
+            total += service.price;
+        });
+
+        totalDisplay.textContent = `Total: ${total} EGP`;
+        attachRemoveFromCartListeners();
+    }
+
+    function attachRemoveFromCartListeners() {
+        document.querySelectorAll('.remove-from-cart-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const serviceId = e.target.dataset.id;
+                let userCart = JSON.parse(localStorage.getItem(`cart_${getLoggedInUsername()}`)) || [];
+                userCart = userCart.filter(s => s.id !== serviceId);
+                localStorage.setItem(`cart_${getLoggedInUsername()}`, JSON.stringify(userCart));
+                renderCart(); // إعادة عرض السلة لتحديثها
+            });
+        });
+    }
+
+    // --- Account Page Logic (account.html) ---
+    // ملاحظة: تم إعادة استخدام دالة renderAccount() من بداية الكود ولكن مع تحديث لتعمل مع الـ localStorage لكل مستخدم
+    // وستكون مسئولة عن عرض الخدمات المعلقة والمؤكدة للمستخدم الحالي.
+    const accountPendingServicesContainer = document.getElementById('pendingServices'); // نفس الـ ID في الـ HTML
+    const accountConfirmedServicesContainer = document.getElementById('confirmedServices'); // نفس الـ ID في الـ HTML
+
+    if (accountPendingServicesContainer || accountConfirmedServicesContainer) {
+        // التأكد من أن المستخدم مسجل دخول للوصول لهذه الصفحة
+        if (!isLoggedIn()) {
+            redirectTo('login.html');
+            return;
+        }
+        renderAccountPage(); // دالة جديدة لتميزها عن الـ renderAccount() العامة إذا أردت
+    }
+
+    function renderAccountPage() {
+        // تحميل الخدمات المعلقة والمؤكدة الخاصة بالمستخدم الحالي
+        let currentUserPendingServices = JSON.parse(localStorage.getItem(`pendingServices_${getLoggedInUsername()}`)) || [];
+        let currentUserConfirmedServices = JSON.parse(localStorage.getItem(`confirmedServices_${getLoggedInUsername()}`)) || [];
+
+        if (accountPendingServicesContainer) {
+            accountPendingServicesContainer.innerHTML = '';
+            if (currentUserPendingServices.length === 0) {
+                accountPendingServicesContainer.innerHTML = '<p>لا توجد خدمات معلقة حالياً.</p>';
+            } else {
+                currentUserPendingServices.forEach(service => {
+                    const serviceElement = document.createElement('div');
+                    serviceElement.className = 'service-card'; // افترض وجود هذا الكلاس
+                    serviceElement.innerHTML = `
+                        <img src="${service.image}" alt="${service.name}" style="width:100%; height:180px; object-fit:cover;">
+                        <h3>${service.name}</h3>
+                        <p>${service.price} EGP</p>
+                        <p>${service.date}</p> <button class="confirm-single-button" data-id="${service.id}" data-date="${service.date}">Confirm</button>
+                    `;
+                    accountPendingServicesContainer.appendChild(serviceElement);
+                });
+                attachConfirmAccountButtonListeners(); // إعادة ربط الـ listeners
+            }
+        }
+
+        if (accountConfirmedServicesContainer) {
+            accountConfirmedServicesContainer.innerHTML = '';
+            if (currentUserConfirmedServices.length === 0) {
+                accountConfirmedServicesContainer.innerHTML = '<p>لا توجد خدمات مؤكدة حالياً.</p>';
+            } else {
+                currentUserConfirmedServices.forEach(service => {
+                    const serviceElement = document.createElement('div');
+                    serviceElement.className = 'service-card confirmed'; // يمكن إضافة كلاس للتنسيق المختلف
+                    serviceElement.innerHTML = `
+                        <img src="${service.image}" alt="${service.name}" style="width:100%; height:180px; object-fit:cover;">
+                        <h3>${service.name}</h3>
+                        <p>${service.price} EGP</p>
+                        <p>${service.date} (Confirmed)</p>
+                    `;
+                    accountConfirmedServicesContainer.appendChild(serviceElement);
+                });
+            }
+        }
+    }
+
+    function attachConfirmAccountButtonListeners() {
+        document.querySelectorAll('#pendingServices .confirm-single-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const serviceId = e.target.dataset.id;
+                const serviceDate = e.target.dataset.date; // للحالات التي قد يكون فيها نفس الخدمة بتواريخ مختلفة
+
+                let currentUserPendingServices = JSON.parse(localStorage.getItem(`pendingServices_${getLoggedInUsername()}`)) || [];
+                let currentUserConfirmedServices = JSON.parse(localStorage.getItem(`confirmedServices_${getLoggedInUsername()}`)) || [];
+
+                // البحث عن الخدمة المحددة بالضبط (بواسطة ID والتاريخ إذا كان موجودًا)
+                const indexToConfirm = currentUserPendingServices.findIndex(s => s.id === serviceId && s.date === serviceDate);
+
+                if (indexToConfirm !== -1) {
+                    const serviceToConfirm = currentUserPendingServices[indexToConfirm];
+
+                    // إزالة الخدمة من pending
+                    currentUserPendingServices.splice(indexToConfirm, 1);
+                    // إضافة الخدمة إلى confirmed
+                    currentUserConfirmedServices.push(serviceToConfirm);
+
+                    localStorage.setItem(`pendingServices_${getLoggedInUsername()}`, JSON.stringify(currentUserPendingServices));
+                    localStorage.setItem(`confirmedServices_${getLoggedInUsername()}`, JSON.stringify(currentUserConfirmedServices));
+                    alert(`تم تأكيد خدمة: ${serviceToConfirm.name}`);
+                    renderAccountPage(); // إعادة عرض صفحة الحساب لتحديث الحالة
+                }
+            });
+        });
+    }
+
+    // --- Doctor Panel Logic (doctor.html) ---
+    const addServiceForm = document.getElementById('addServiceForm');
+    const addServiceMessage = document.getElementById('addServiceMessage');
+
+    if (addServiceForm) {
+        // التأكد من أن المستخدم دكتور للوصول لهذه الصفحة
+        if (!isLoggedIn() || getLoggedInUserRole() !== 'doctor') {
+            redirectTo('login.html'); // إعادة توجيه لصفحة تسجيل الدخول
+            return;
+        }
+
+        addServiceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const serviceName = document.getElementById('serviceName').value;
+            const servicePrice = parseFloat(document.getElementById('servicePrice').value);
+            const serviceImage = document.getElementById('serviceImage').value;
+
+            // توليد معرف فريد بسيط
+            const newServiceId = 's' + (availableServices.length + 1);
+
+            const newService = {
+                id: newServiceId,
+                name: serviceName,
+                price: servicePrice,
+                image: serviceImage || 'https://via.placeholder.com/200x180/ccc/555?text=New+Service'
+            };
+
+            availableServices.push(newService);
+            localStorage.setItem('availableServices', JSON.stringify(availableServices)); // حفظ الخدمات المحدثة
+            addServiceForm.reset(); // مسح الفورم
+            addServiceMessage.textContent = 'تمت إضافة الخدمة (محليًا)!';
+            setTimeout(() => {
+                addServiceMessage.textContent = '';
+            }, 3000); // مسح الرسالة بعد 3 ثواني
+            renderServices(); // تحديث قائمة الخدمات المتاحة في صفحة الخدمات
+        });
+    }
+});
